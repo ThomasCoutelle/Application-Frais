@@ -1,0 +1,68 @@
+{% extends "projetGSBprojetGsbBundle:VisitorSide:index.html.twig" %}
+
+{% block edit %}
+    <h3>Formulaire ligne forfait</h3>
+    {{ form_start(editFixedPriceLineForm) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(editFixedPriceLineForm.dateJourDebut, 'Date jour début' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.dateJourDebut) }}
+            {{ form_widget(editFixedPriceLineForm.dateJourDebut, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(editFixedPriceLineForm.dateJourFin, 'Date de fin' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.dateJourFin) }}
+            {{ form_widget(editFixedPriceLineForm.dateJourFin, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(editFixedPriceLineForm.region, 'Region' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.region) }}
+            {{ form_widget(editFixedPriceLineForm.region, { 'attr': {'class': 'form-control dropdown'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(editFixedPriceLineForm.vehicule, 'Vehicule' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.vehicule) }}
+            {{ form_widget(editFixedPriceLineForm.vehicule, { 'attr': {'class': 'form-control dropdown'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            {{ form_label(editFixedPriceLineForm.repasMidi, 'Midi' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.repasMidi) }}
+            {{ form_widget(editFixedPriceLineForm.repasMidi, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(editFixedPriceLineForm.nuitees, 'Nuitée' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.nuitees) }}
+            {{ form_widget(editFixedPriceLineForm.nuitees, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(editFixedPriceLineForm.etape, 'Etape' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.etape) }}
+            {{ form_widget(editFixedPriceLineForm.etape, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(editFixedPriceLineForm.km, 'Kilomètres' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editFixedPriceLineForm.km) }}
+            {{ form_widget(editFixedPriceLineForm.km, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            {{ form_rest(editFixedPriceLineForm) }}
+            {{ form_row(editFixedPriceLineForm.submit) }}
+        </div>
+        {{ form_end(editFixedPriceLineForm, {'render_rest': false}) }}
+        <div class="col-sm-2">
+            {{ form(deleteFixedPriceLineForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block nav %}
+    <a class="btn btn-primary btn-block" href="{{ path('projetGSB_visitor_index') }}">Fiche en cours</a>
+    <a class="btn btn-info btn-block" href="{{ path('projetGSB_visitor_directory_index')}}">Annuaire</a>
+    <div id="separation"></div>
+{% endblock %}

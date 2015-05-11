@@ -1,0 +1,303 @@
+/*
+*	GLOBAL
+*/
+html, body {
+    height: 100%;
+    margin:0;
+    padding:0;
+}
+
+body {
+    background-color : #1E8BC3;/*5280bc*/
+    height: 100%;
+    font-family: 'Neu helvetica', helvetica, arial, serif;
+    color: #3f3f3f;
+}
+
+#corps{
+    min-height: 502px;
+}
+
+[class*='col-']{
+    height: 100%;
+}
+
+h3{
+    font-size: 20px;
+}
+
+/* for IE, Opera, Chrome : hide arrow of input type integer */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* idem for mozilla firefox */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+/*
+*	HEADER
+*/
+header {
+    border: 3px outset #fff;
+    background-color: #fff;
+    text-align: center;
+}
+
+header .col-xs-4, header .col-sm-4, header .col-md-4, header .col-lg-4 {
+    padding: 15px;
+}
+
+header #profil_container {
+    padding: 0;
+}
+
+header #profil {
+    float: right;
+    min-width: 220px;
+    width: 40%;
+    border: 2px solid #5280bc;
+    border-radius: 10px;
+    padding: 5px 8px;
+    margin: 10px 25px 5px 0;
+}
+
+header #profil a {
+    margin: 5px;
+}
+
+header #img_container {
+    text-align: left;
+}
+
+header img {
+    height: 70px;
+    margin-left: 40px;
+}
+
+header #nomUtilisateur {
+    font-weight: bold;
+}
+
+/*
+*	MENU
+*/
+#separation {
+    background-color: #5280bc;
+    width: 85%;
+    height: 1px;
+    margin: 10px auto;
+}
+
+#menu {
+    background-color: #fff;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height: 100%;
+    overflow: auto;
+}
+/*
+*   NAV
+*/
+nav{
+    text-align: center;
+}
+
+nav .btn-block {
+    margin-top: 7px;
+}
+
+nav .btn-inline{
+    margin: 7px auto;
+    width: 40%;
+}
+
+/*
+*	DISPLAY
+*/
+#display {
+    height: 100%;
+    padding: 15px;
+    overflow: auto;
+}
+
+#display .info-fiche {
+    border: 4px solid #dcdcdc;
+    border-radius: 8px;
+    text-align: center;
+    margin-left: 50px;
+    padding: 0;
+    background-color: transparent;
+}
+
+#display .info-fiche div{
+    display: inline-block;
+    border: 1px solid red;
+    margin: 0;
+}
+
+#display .info-fiche .info-Mvalide, #display .info-fiche .info-Msaisie, #display .info-fiche .info-date{
+    height: 100%;
+    padding: 15px;
+    background-color: #1E8BC3;
+}
+
+#display .info-fiche .info-Mvalide {
+    background-color: #56ADA5;
+}
+
+#display .info-fiche .info-Msaisie {
+    background-color: #dcdcdc;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.no-result{
+    padding: 30px;
+    color: #fff;
+    font-size: 22px;
+}
+
+/*
+*   Tables
+*/
+table{
+    border-radius: 5px;
+    background-color: #DADFE1;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+table thead th{
+    background-color: #34495E;
+    padding: 12px;
+    color: #ECF0F1;
+    font-weight: bold;
+}
+
+table thead tr:first-child th:first-child{
+    border-top-left-radius: 5px;
+}
+
+table thead tr:last-child th:last-child{
+    border-top-right-radius: 5px;
+}
+
+table> tbody > tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+table td{
+    text-align: center;
+    padding: 11px;
+    vertical-align:  top;
+    border-top: 1px solid #BDC3C7;
+}
+
+table tfoot{
+    padding: 8px;
+    border-top: 2px solid #34495E;
+}
+
+table tfoot td{
+    font-weight: bold;
+    background-color: #F2F1EF;
+}
+
+table tfoot .label-foot{
+    text-align: right;
+}
+
+table tfoot .nombre-foot{
+    text-align: left;
+}
+
+table tfoot tr:last-child td:last-child{
+    border-bottom-right-radius: 5px;
+    border-left: 2px solid #34495E;
+}
+
+table tfoot tr:first-child td:first-child{
+    border-bottom-left-radius: 5px;
+}
+
+table textarea{
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 4px;
+    height: 30px;
+}
+
+table textarea:focus{
+    outline: 0;
+    border-color: #19B5FE;
+    -webkit-box-shadow:  0 0px 4px rgba(25, 181, 254,0.5);
+    box-shadow: 0 0px 4px rgba(25, 181, 254,0.5);
+}
+
+table .glyphicon-remove{
+    font-size: 19px;
+    color: #d8534f;
+}
+
+table .glyphicon-ok{
+    font-size: 19px;
+    color: #5cb75c;
+}
+
+select option{
+    padding: 4px;
+}
+
+/*
+*   Forms
+*/
+#edit .integerInput{
+    height: 30px;
+    width: 50px;
+    text-align: center;
+}
+
+#edit .dropdown{
+    width: 60%;
+    height: 30px;
+}
+
+#edit .form-control{
+    display: inline-block;
+}
+
+#edit .row{
+    padding: 5px;
+}
+
+#edit .uploadButton{
+    display: inline-block;
+    font-size: 13px;
+}
+
+#edit a{
+    margin-top: 10px;
+}
+
+.form-label{
+    margin-right: 10px;
+}
+
+.block{
+    display: block !important;
+}
+
+.btn-validation{
+    margin: 0  15px 15px 15px;
+}

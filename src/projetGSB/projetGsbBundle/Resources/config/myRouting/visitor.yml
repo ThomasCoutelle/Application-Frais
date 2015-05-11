@@ -1,0 +1,53 @@
+projetGSB_visitor_index:
+    path:     /
+    defaults: { _controller: projetGSBprojetGsbBundle:Visitor:index }
+    
+#    ===========================================================================
+#                                Lignes Forfait
+#    ===========================================================================
+
+projetGSB_visitor_createFixed:
+    path:     /creation_ligne_forfait
+    defaults: { _controller: projetGSBprojetGsbBundle:Visitor:createFixedPriceLine }
+    methods : [POST,PUT]
+    
+projetGSB_visitor_editFixed:
+    path:   /{idLigne}/edition_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:editFixedPriceLine}
+    
+projetGSB_visitor_updateFixed:
+    path:   /{idLigne}/update_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:updateFixedPriceLine}
+    
+projetGSB_visitor_deleteFixed:
+    path:   /{idLigne}/delete_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:deleteFixedPriceLine}
+    
+#    ===========================================================================
+#                                Lignes Hors Forfait
+#    ===========================================================================
+
+projetGSB_visitor_createUnfixed:
+    path:     /creation_ligne_hors_forfait
+    defaults: { _controller: projetGSBprojetGsbBundle:Visitor:createUnfixedPriceLine }
+    methods : [POST,PUT]
+    
+projetGSB_visitor_editUnfixed:
+    path:   /{idLigne}/edition_hors_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:editUnfixedPriceLine}
+    
+projetGSB_visitor_updateUnfixed:
+    path:   /{idLigne}/update_hors_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:updateUnfixedPriceLine}
+    
+projetGSB_visitor_deleteUnfixed:
+    path:   /{idLigne}/delete_hors_forfait
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:deleteUnfixedPriceLine}
+    
+#    ===========================================================================
+#                                Annuaire
+#    ===========================================================================
+
+projetGSB_visitor_directory:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/invoiceDirectoryVisitor.yml"
+    prefix: /annuaire

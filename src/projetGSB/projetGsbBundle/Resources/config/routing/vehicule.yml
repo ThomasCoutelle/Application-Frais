@@ -1,0 +1,30 @@
+vehicule:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:index" }
+
+vehicule_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:show" }
+
+vehicule_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:new" }
+
+vehicule_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:create" }
+    requirements: { _method: post }
+
+vehicule_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:edit" }
+
+vehicule_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:update" }
+    requirements: { _method: post|put }
+
+vehicule_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:Vehicule:delete" }
+    requirements: { _method: post|delete }

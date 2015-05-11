@@ -1,0 +1,4 @@
+projet_gs_bprojet_gsb:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing.yml"
+    prefix:   /
+

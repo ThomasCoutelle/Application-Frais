@@ -1,0 +1,58 @@
+/*
+*	HEADER
+*/
+header {
+    border: 3px outset #fff;
+    background-color: #fff;
+    text-align: center;
+}
+
+header .col-xs-4, header .col-sm-4, header .col-md-4, header .col-lg-4 {
+    padding: 15px;
+}
+
+header #profil_container {
+    padding: 0;
+}
+
+header #profil {
+    float: right;
+    min-width: 220px;
+    width: 40%;
+    border: 2px solid #5280bc;
+    border-radius: 10px;
+    padding: 5px 8px;
+    margin: 10px 25px 5px 0;
+}
+
+header #profil a {
+    margin: 5px;
+}
+
+header #img_container {
+    text-align: left;
+}
+
+header img {
+    height: 70px;
+    margin-left: 40px;
+}
+
+header #nomUtilisateur {
+    font-weight: bold;
+}
+
+/*
+*   Container
+*/
+body{
+    background-color: #1E8BC3;
+}
+
+.btn-group a{
+    padding: 15px !important;
+}
+
+.btn-group{
+    margin-top: 30px;
+}

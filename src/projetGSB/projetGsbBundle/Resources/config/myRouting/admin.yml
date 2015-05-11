@@ -1,0 +1,35 @@
+projetGSB_admin_index:
+   path:  /
+   defaults: { _controller: projetGSBprojetGsbBundle:Admin:index }
+
+#
+# CRUD routings
+#
+
+projet_gs_bprojet_gsb_document:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/document.yml"
+    prefix:   /document
+
+projet_gs_bprojet_gsb_etatfiche:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/etatfiche.yml"
+    prefix:   /etatfiche
+
+projet_gs_bprojet_gsb_etatligne:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/etatligne.yml"
+    prefix:   /etatligne
+
+projet_gs_bprojet_gsb_fichefrais:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/fichefrais.yml"
+    prefix:   /fichefrais
+
+projet_gs_bprojet_gsb_ligneforfait:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/ligneforfait.yml"
+    prefix:   /ligneforfait
+
+projet_gs_bprojet_gsb_lignehorsforfait:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/lignehorsforfait.yml"
+    prefix:   /lignehorsforfait
+
+projet_gs_bprojet_gsb_region:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/region.yml"
+    prefix:   /region

@@ -1,0 +1,202 @@
+{% extends "projetGSBprojetGsbBundle:Template:layout.html.twig" %}
+
+{% block pageTitle %}Fiche courante{% endblock %}
+
+{% block title %}Fiche de frais du mois{% endblock %}
+
+{% block display %}
+        <table>
+            <tr class="info-fiche">
+                <td class='info-date'><span class="bold">{{ ficheCurrent.date.format('F')|trans }} {{ ficheCurrent.date.format('Y') }}</span></td>
+                <td class='info-Msaisie'>Montant total saisie : <span class="bold">{{ ficheCurrent.getMontantTotal() }}€</span></td>
+                <td class='info-Mvalide'>Montant total validé : <span class="bold">{{ ficheCurrent.getMontantTotalValid() }}€</span></td>
+            </tr>
+        </table>
+        <h2>Lignes forfait</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Période</th>
+                    <th>Région</th>
+                    <th>Repas midi</th>
+                    <th>Nuitée</th>
+                    <th>Etape</th>
+                    <th>Km</th>
+                    <th>Véhicule</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+            {% if ficheCurrent.countFixedPriceLine == false %}
+                <tr>
+                    <td colspan="8">Veuillez saisir un frais forfaitisé</td>
+                </tr>
+            {% endif %}
+            {% for ligne in ficheCurrent.ListeLigneForfait %}
+                <tr>
+                    <td>
+                        du {{ligne.getStringDateJourDebut()}}/{{ficheCurrent.date.format('m')}}/{{ficheCurrent.date.format('Y')}}<br/>
+                        au {{ligne.getStringDateJourFin()}}/{{ficheCurrent.date.format('m')}}/{{ficheCurrent.date.format('Y')}}
+                    </td>
+                    <td>{{ligne.region.libelle}}</td>
+                    <td>{{ligne.repasMidi}}</td>
+                    <td>{{ligne.nuitees}}</td>
+                    <td>{{ligne.etape}}</td>
+                    <td>{{ligne.km}}</td>
+                    <td>{{ligne.vehicule}}</td>
+                    <td><a type="button"  class="btn btn-default" href="{{ path('projetGSB_visitor_editFixed', { 'idLigne': ligne.id }) }}">Modifier</a></td>  
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="label-foot">Montant total</td>
+                    <td colspan="2" class="nombre-foot">{{ficheCurrent.getMontantForfaitTotal()}} €</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h2>Lignes hors-forfait</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Libelle</th>
+                    <th>Montant</th>
+                    <th>Justifiée</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+            {% if ficheCurrent.countUnfixedPriceLine == false %}
+                <tr>
+                    <td colspan="8">Veuillez saisir un frais non forfaitisé</td>
+                </tr>
+            {% endif %}
+            {% for ligne in ficheCurrent.listeLigneHorsForfait %}
+                <tr>
+                    <td>{{ligne.getStringDateJour()}}/{{ficheCurrent.date.format('m')}}/{{ficheCurrent.date.format('Y')}}</td>
+                    <td>{{ligne.libelle}}</td>
+                    <td>{{ligne.montant}}</td>
+                    <td>
+                        {% if ligne.getStringJustifier == true %}
+                            <a href="{{ asset(ligne.justificatif.webPath) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        {% endif %}
+                        {% if ligne.getStringJustifier == false %}
+                            <span class="glyphicon glyphicon-minus"></span>
+                        {% endif %}
+                    </td>
+                    <td><a type="button"  class="btn btn-default" href="{{ path('projetGSB_visitor_editUnfixed', { 'idLigne': ligne.id }) }}">Modifier</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2" class="label-foot">Nombre de justificatifs : </td>
+                <td colspan="1" class="nombre-foot">{{ficheCurrent.getNbJustificatifTotal()}}</td>
+                <td colspan="1" class="label-foot">Montant total</td>
+                <td colspan="1" class="nombre-foot">{{ficheCurrent.getMontantHorsForfaitTotal()}} €</td>
+            </tr>
+            </tfoot>
+        </table>
+{% endblock %}
+
+{% block nav %}
+    <a class="btn btn-info btn-inline" href="{{ path('projetGSB_visitor_directory_index')}}">Annuaire</a>
+    <a class="btn btn-danger btn-inline" href="#">Synchronisation</a>
+    <div id="separation"></div>
+{% endblock %}
+
+{% block edit %}
+    <h3>Formulaire ligne forfait</h3>
+    {{ form_start(createFixedPriceLineForm) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(createFixedPriceLineForm.dateJourDebut, 'Date jour début' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.dateJourDebut) }}
+            {{ form_widget(createFixedPriceLineForm.dateJourDebut, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(createFixedPriceLineForm.dateJourFin, 'Date de fin' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.dateJourFin) }}
+            {{ form_widget(createFixedPriceLineForm.dateJourFin, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(createFixedPriceLineForm.region, 'Region' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.region) }}
+            {{ form_widget(createFixedPriceLineForm.region, { 'attr': {'class': 'form-control dropdown'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(createFixedPriceLineForm.vehicule, 'Vehicule' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.vehicule) }}
+            {{ form_widget(createFixedPriceLineForm.vehicule, { 'attr': {'class': 'form-control dropdown'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            {{ form_label(createFixedPriceLineForm.repasMidi, 'Midi' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.repasMidi) }}
+            {{ form_widget(createFixedPriceLineForm.repasMidi, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(createFixedPriceLineForm.nuitees, 'Nuitée' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.nuitees) }}
+            {{ form_widget(createFixedPriceLineForm.nuitees, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(createFixedPriceLineForm.etape, 'Etape' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.etape) }}
+            {{ form_widget(createFixedPriceLineForm.etape, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_label(createFixedPriceLineForm.km, 'Kilomètres' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createFixedPriceLineForm.km) }}
+            {{ form_widget(createFixedPriceLineForm.km, { 'attr': {'class': 'form-control integerInput block'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_rest(createFixedPriceLineForm) }}
+            {{ form_row(createFixedPriceLineForm.submit) }}
+        </div>
+    </div>
+    {{ form_end(createFixedPriceLineForm, {'render_rest': false}) }}
+
+    <div id="separation"></div>
+
+    <h3>Formulaire ligne hors forfait</h3>
+    {{ form_start(createUnfixedPriceLineForm) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(createUnfixedPriceLineForm.dateJour, 'Date jour' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createUnfixedPriceLineForm.dateJour) }}
+            {{ form_widget(createUnfixedPriceLineForm.dateJour, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(createUnfixedPriceLineForm.montant, 'Montant' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createUnfixedPriceLineForm.montant) }}
+            {{ form_widget(createUnfixedPriceLineForm.montant, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_label(createUnfixedPriceLineForm.libelle, 'Libelle' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createUnfixedPriceLineForm.libelle) }}
+            {{ form_widget(createUnfixedPriceLineForm.libelle, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="col-sm-8">
+            {{ form_label(createUnfixedPriceLineForm.justificatif.file, 'Justificatif' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(createUnfixedPriceLineForm.justificatif.file) }}
+            {{ form_widget(createUnfixedPriceLineForm.justificatif.file, { 'attr': {'class': 'block'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_rest(createUnfixedPriceLineForm) }}
+            {{ form_row(createUnfixedPriceLineForm.submit) }}
+        </div>
+    </div>
+    {{ form_end(createUnfixedPriceLineForm, {'render_rest': false}) }}
+{% endblock %}

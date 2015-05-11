@@ -1,0 +1,30 @@
+fichefrais:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:index" }
+
+fichefrais_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:show" }
+
+fichefrais_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:new" }
+
+fichefrais_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:create" }
+    requirements: { _method: post }
+
+fichefrais_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:edit" }
+
+fichefrais_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:update" }
+    requirements: { _method: post|put }
+
+fichefrais_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:FicheFrais:delete" }
+    requirements: { _method: post|delete }

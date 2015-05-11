@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSB - {% block pageTitle %}Interface d'administration{% endblock %}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('bundles/projetgsbprojetgsb/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/projetgsbprojetgsb/css/StyleAdmin.css')}}" />
+</head>
+<body>
+    <header class='row'>
+        {% block header %}
+            <div id='img_container' class='col-sm-4'>
+                <img class="img-rounded" src="{{ asset('bundles/projetgsbprojetgsb/images/logo.jpg') }}" alt="logo GSB" title="Galaxy Swiss Bourdin" />
+            </div>
+            <div class='col-sm-4'>
+                <h1>{% block title %}Interface d'administration{% endblock %}</h1>
+            </div>
+            <div id="profil_container" class='col-sm-4'>
+                <div id="profil" >
+                    <span id="bonjour">Bienvenue{% block nomUtilisateur %} <span id='nomUtilisateur'>{% if app.user.role == 'Admin' %}Administrateur{% endif %}</span> {% endblock %}</span><br/>
+                    <a class="btn btn-primary" href="{{path('projetGSB_logout')}}" role="button"><span class="glyphicon glyphicon-off"> Déconnexion</span></a>
+                </div>
+            </div>
+        {% endblock %}
+    </header>
+    <div class="container">
+        <div class="btn-group btn-group-justified" role="group" aria-label="administration">
+            <a href="{{ path('utilisateur') }}" class="btn btn-default" aria-label="administration">Utilisateur</a>
+            <a href="{{ path('fichefrais') }}" class="btn btn-default" aria-label="administration">Fiche de frais</a>
+            <a href="{{ path('etatfiche') }}" class="btn btn-default" aria-label="administration">Etat fiche</a>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="administration">
+            <a href="{{ path('ligneforfait') }}" class="btn btn-default" aria-label="administration">Ligne forfaitisée</a>
+            <a href="{{ path('region') }}" class="btn btn-default" aria-label="administration">Région</a>
+            <a href="{{ path('vehicule') }}" class="btn btn-default" aria-label="administration">Vehicule</a>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="administration">
+            <a href="{{ path('lignehorsforfait') }}" class="btn btn-default" aria-label="administration">Ligne non forfaitisée</a>
+            <a href="{{ path('document') }}" class="btn btn-default" aria-label="administration">Document</a>
+            <a href="{{ path('etatligne') }}" class="btn btn-default" aria-label="administration">Etat ligne</a>
+        </div>
+    </div>
+</body>
+</html>

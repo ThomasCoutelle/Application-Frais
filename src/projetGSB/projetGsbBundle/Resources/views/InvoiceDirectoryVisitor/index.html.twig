@@ -1,0 +1,167 @@
+{%extends "projetGSBprojetGsbBundle:Template:layout.html.twig"%}
+
+{% block pageTitle %}Annuaire{% endblock %}
+
+{% block title %}
+    {% if role == 'Comptable' %}
+        Liste des fiches à valider
+    {% else %}
+        Annuaire
+    {% endif %}
+{% endblock %}
+
+{% block display %}
+    {% if fichesConsult != null %}
+        <h2>Liste de fiches frais</h2>
+        <table>
+            <thead>
+                <tr>
+                    {% if role =='Comptable' or role == 'ComptableConsult' %}
+                        <th>Nom</th>
+                    {% endif %}
+                    <th>Date</th>
+                    <th>Montant saisie</th>
+                    <th>Montant validé</th>
+                    <th>Nombre de justificatifs</th>
+                    <th>Etat</th>
+                    <th>Consulter</th>
+                    {% if role =='Comptable' %}
+                        <th>Valider</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for fiche in fichesConsult %}
+
+                    <tr>
+                    {% if role =='Comptable' or role == 'ComptableConsult' %}
+                        <td>{{fiche.getUtilisateur()}}</td>
+                    {% endif %}
+                        <td>{{ fiche.date.format('F')|trans }} {{ fiche.date.format('Y') }}</td>
+                        <td>{{fiche.getMontantTotal()}}</td>
+                        <td>{{fiche.getMontantTotalValid()}}</td>
+                        <td>{{fiche.getNbJustificatifTotal()}}</td>
+                        <td>{{fiche.getEtat}}</td>
+                        {% if role == 'Comptable' %}
+                            <td><a type="button"  class="btn btn-default" href="{{ path('projetGSB_accountant_validationDisplay', { 'idFiche': fiche.id }) }}"><span class='glyphicon glyphicon-eye-open'></span> Consulter</a></td>
+                        {% elseif role == 'ComptableConsult' %}
+                            <td><a type="button"  class="btn btn-default" href="{{ path('projetGSB_accountant_directory_consult', { 'idFiche': fiche.id }) }}"><span class='glyphicon glyphicon-eye-open'></span> Consulter</a></td>
+                        {% else %}
+                            <td><a type="button"  class="btn btn-default" href="{{ path('projetGSB_visitor_directory_consult', { 'idFiche': fiche.id }) }}"><span class='glyphicon glyphicon-eye-open'></span> Consulter</a></td>
+                        {% endif %}
+                        {% if role =='Comptable' %}
+                            <td><a type="button"  class="btn btn-success" href="{{ path('projetGSB_accountant_validateOneInvoice', { 'idFiche': fiche.id }) }}"><span class="glyphicon glyphicon-ok-sign"></span> Rembourser</a></td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-result">Il n'y a aucune fiche frais dans l'annuaire ou pour vos critères de recherches !</p>
+    {% endif %}
+{% endblock %}
+
+{% block nav %}
+    {% if role == 'Visiteur' %}
+        <a class="btn btn-primary btn-block" href="{{ path('projetGSB_visitor_index')}}">Fiche en cours</a>
+        <div id="separation"></div>
+    {% endif %}
+
+    {% if role == 'Comptable' %}
+        <a class="btn btn-info btn-block" href="{{ path('projetGSB_accountant_historic')}}">Annuaire</a>
+        <div id="separation"></div>
+    {% endif %}
+
+     {% if role == 'ComptableConsult' %}
+        <a class="btn btn-primary btn-block" href="{{ path('projetGSB_accountant_index')}}">Fiches à valider</a>
+         <div id="separation"></div>
+    {% endif %}
+    
+{% endblock %}
+
+{% block edit %}
+    {% if role == 'Visiteur' %}
+        {{ form_start(filterVisitorForm) }}
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_label(filterVisitorForm.mois, 'Mois',{ 'label_attr': { 'class': 'form-label' } }) }}
+                    {{ form_errors(filterVisitorForm.mois) }}
+                    {{ form_widget(filterVisitorForm.mois,{ 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_label(filterVisitorForm.annee, 'Année',{ 'label_attr': { 'class': 'form-label' } }) }}
+                    {{ form_errors(filterVisitorForm.annee) }}
+                    {{ form_widget(filterVisitorForm.annee,{ 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_label(filterVisitorForm.etat, 'Etat',{ 'label_attr': { 'class': 'form-label' } }) }}
+                    {{ form_errors(filterVisitorForm.etat) }}
+                    {{ form_widget(filterVisitorForm.etat,{ 'attr': { 'class': 'form-control' } }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_rest(filterVisitorForm) }}
+                    {{ form_row(filterVisitorForm.submit) }}
+                </div>
+            </div>
+        {{ form_end(filterVisitorForm, {'render_rest': false}) }}
+    {% endif %}
+
+    {% if role == 'Comptable' %}
+        {{ form_start(filterAccountantForm) }}
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_label(filterAccountantForm.nom, 'Nom',{ 'label_attr': { 'class': 'form-label' } }) }}
+                    {{ form_errors(filterAccountantForm.nom) }}
+                    {{ form_widget(filterAccountantForm.nom,{ 'attr': { 'class': 'form-control' } }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_rest(filterAccountantForm) }}
+                    {{ form_row(filterAccountantForm.submit) }}
+                </div>
+            </div>
+        {{ form_end(filterAccountantForm, {'render_rest': false}) }}
+        <div class='separation'></div>
+        <a href="{{ path('projetGSB_accountant_fenceAllInvoice') }}" class='btn btn-danger'>Cloturer toute les fiches</a>
+        <a href="{{ path('projetGSB_accountant_validateAllInvoice') }}" class='btn btn-success'><span class="glyphicon glyphicon-ok-sign"></span> Rembourser toute les fiches</a>
+    {% endif %}
+
+    {% if role == 'ComptableConsult' %}
+        {{ form_start(filterAccountantHistoricForm) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_label(filterAccountantHistoricForm.nom, 'Nom',{ 'label_attr': { 'class': 'form-label' } }) }}
+                {{ form_errors(filterAccountantHistoricForm.nom) }}
+                {{ form_widget(filterAccountantHistoricForm.nom,{ 'attr': { 'class': 'form-control' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form_label(filterAccountantHistoricForm.mois, 'Mois',{ 'label_attr': { 'class': 'form-label' } }) }}
+                {{ form_errors(filterAccountantHistoricForm.mois) }}
+                {{ form_widget(filterAccountantHistoricForm.mois,{ 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_label(filterAccountantHistoricForm.annee, 'Année',{ 'label_attr': { 'class': 'form-label' } }) }}
+                {{ form_errors(filterAccountantHistoricForm.annee) }}
+                {{ form_widget(filterAccountantHistoricForm.annee,{ 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_label(filterAccountantHistoricForm.etat, 'Etat',{ 'label_attr': { 'class': 'form-label' } }) }}
+                {{ form_errors(filterAccountantHistoricForm.etat) }}
+                {{ form_widget(filterAccountantHistoricForm.etat,{ 'attr': { 'class': 'form-control' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{ form_rest(filterAccountantHistoricForm) }}
+                {{ form_row(filterAccountantHistoricForm.submit) }}
+            </div>
+        </div>
+        {{ form_end(filterAccountantHistoricForm, {'render_rest': false}) }}
+    {% endif %}
+{% endblock %}

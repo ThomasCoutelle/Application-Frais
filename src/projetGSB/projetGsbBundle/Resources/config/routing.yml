@@ -1,0 +1,37 @@
+projet_gs_bprojet_gsb_vehicule:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/vehicule.yml"
+    prefix:   /vehicule
+
+projet_gs_bprojet_gsb_utilisateur:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/routing/utilisateur.yml"
+    prefix:   /utilisateur
+
+#
+# My routings
+#
+
+projetGSB_projet_gsb_visitor:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/visitor.yml"
+    prefix: /visiteur
+    
+projetGSB_projet_gsb_accountant:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/accountant.yml"
+    prefix: /comptable
+
+projetGSB_projet_gsb_admin:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/admin.yml"
+    prefix: /admin
+    
+projetGSB_login:
+    path:     /
+    defaults: { _controller: projetGSBprojetGsbBundle:Default:index}
+    
+projetGSB_login_check:
+    pattern:    /login_check
+    
+projetGSB_logout:
+    pattern:    /logout
+    
+projetGSB_gestion_connexion:
+    path:   /gestion_connexion
+    defaults: {_controller: projetGSBprojetGsbBundle:Default:gestionConnexion}

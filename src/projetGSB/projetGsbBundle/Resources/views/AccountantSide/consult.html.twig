@@ -1,0 +1,137 @@
+{% extends "projetGSBprojetGsbBundle:Template:layout.html.twig" %}
+
+{% block pageTitle %}Consultation comptable{% endblock %}
+
+{% block title %}Consultation{% endblock %}
+
+{% block display %}
+    <table>
+        <tr class="info-fiche">
+            <td class='info-date'><span class="bold">{{ ficheConsult.date.format('F')|trans }} {{ ficheConsult.date.format('Y') }}</span></td>
+            <td class='info-Msaisie'>Montant total saisie : <span class="bold">{{ ficheConsult.getMontantTotal() }}€</span></td>
+            <td class='info-Mvalide'>Montant total validé : <span class="bold">{{ ficheConsult.getMontantTotalValid() }}€</span></td>
+        </tr>
+    </table>
+    <h2>Lignes forfait</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Période</th>
+                <th>Région</th>
+                <th>Repas midi</th>
+                <th>Nuitée</th>
+                <th>Etape</th>
+                <th>Km</th>
+                <th>Véhicule</th>
+                <th>Commentaire</th>
+                <th>Validée</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if ficheConsult.countFixedPriceLine == false %}
+            <tr>
+                <td colspan="8">Il n'existe aucun frais forfaitisé pour ce mois ci</td>
+            </tr>
+        {% endif %}
+        {% for ligne in ficheConsult.ListeLigneForfait %}
+            <tr>
+                <td>
+                    du {{ligne.getStringDateJourDebut()}}/{{ficheConsult.date.format('m')}}/{{ficheConsult.date.format('Y')}}<br/>
+                    au {{ligne.getStringDateJourFin()}}/{{ficheConsult.date.format('m')}}/{{ficheConsult.date.format('Y')}}
+                </td>
+                <td>{{ligne.region.libelle}}</td>
+                <td>{{ligne.repasMidi}}</td>
+                <td>{{ligne.nuitees}}</td>
+                <td>{{ligne.etape}}</td>
+                <td>{{ligne.km}}</td>
+                <td>{{ligne.vehicule}}</td>
+                <td>
+                    {% if ligne.motifRefus == null %}
+                        <span class="glyphicon glyphicon-minus"></span>
+                    {% else %}
+                        {{ligne.motifRefus}}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ligne.etat == 'Validée' %}
+                        <span class="glyphicon glyphicon-ok"></span>
+                    {% endif %}
+                    {% if ligne.etat == 'Refusée' %}
+                        <span class="glyphicon glyphicon-remove"></span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" class="label-foot">Montant total</td>
+                <td colspan="2" class="nombre-foot">{{ficheConsult.getMontantForfaitTotal()}} €</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h2>Lignes hors-forfait</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Libelle</th>
+                <th>Montant</th>
+                <th>Justifiée</th>
+                <th>Commentaire</th>
+                <th>Validée</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if ficheConsult.countUnfixedPriceLine == false %}
+            <tr>
+                <td colspan="8">Il n'existe aucun frais non forfaitisé pour ce mois ci</td>
+            </tr>
+        {% endif %}
+        {% for ligne in ficheConsult.listeLigneHorsForfait %}
+            <tr>
+                <td>{{ligne.getStringDateJour()}}/{{ficheConsult.date.format('m')}}/{{ficheConsult.date.format('Y')}}</td>
+                <td>{{ligne.libelle}}</td>
+                <td>{{ligne.montant}}</td>
+                <td>
+                    {% if ligne.getStringJustifier == true %}
+                        <a href="{{ asset(ligne.justificatif.webPath) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    {% endif %}
+                    {% if ligne.getStringJustifier == false %}
+                        <span class="glyphicon glyphicon-minus"></span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ligne.motifRefus == null %}
+                        <span class="glyphicon glyphicon-minus"></span>
+                    {% else %}
+                        {{ligne.motifRefus}}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ligne.etat == 'Validée' %}
+                        <span class="glyphicon glyphicon-ok"></span>
+                    {% endif %}
+                    {% if ligne.etat == 'Refusée' %}
+                        <span class="glyphicon glyphicon-remove"></span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="label-foot">Nombre de justificatifs : </td>
+                <td class="nombre-foot">{{ficheConsult.getNbJustificatifTotal()}}</td>
+                <td colspan="2" class="label-foot">Montant total</td>
+                <td colspan="2" class="nombre-foot">{{ficheConsult.getMontantHorsForfaitTotal()}} €</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
+{% block nav %}
+    <a class="btn btn-primary btn-block" href="{{ path('projetGSB_accountant_index')}}">Fiches à valider</a>
+    <a class="btn btn-info btn-block" href="{{ path('projetGSB_accountant_historic')}}">Annuaire</a>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "projetGSBprojetGsbBundle:VisitorSide:index.html.twig" %}
+
+{% block edit %}
+    <h3>Formulaire ligne hors forfait</h3>
+    {{ form_start(editUnfixedPriceLineForm) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(editUnfixedPriceLineForm.dateJour, 'Date jour' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editUnfixedPriceLineForm.dateJour) }}
+            {{ form_widget(editUnfixedPriceLineForm.dateJour, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(editUnfixedPriceLineForm.montant, 'Montant' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editUnfixedPriceLineForm.montant) }}
+            {{ form_widget(editUnfixedPriceLineForm.montant, { 'attr': {'class': 'integerInput form-control'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_label(editUnfixedPriceLineForm.libelle, 'Libelle' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editUnfixedPriceLineForm.libelle) }}
+            {{ form_widget(editUnfixedPriceLineForm.libelle, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="col-sm-8">
+            {{ form_label(editUnfixedPriceLineForm.justificatif.file, 'Justificatif' ,{ 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_errors(editUnfixedPriceLineForm.justificatif.file) }}
+            {{ form_widget(editUnfixedPriceLineForm.justificatif.file, { 'attr': {'class': 'block'} }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            {{ form_rest(editUnfixedPriceLineForm) }}
+            {{ form_row(editUnfixedPriceLineForm.submit) }}
+        </div>
+        {{ form_end(editUnfixedPriceLineForm, {'render_rest': false}) }}
+        <div class="col-sm-2">
+            {{ form(deleteUnfixedPriceLineForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block nav %}
+    <a class="btn btn-primary btn-block" href="{{ path('projetGSB_visitor_index') }}">Fiche en cours</a>
+    <a class="btn btn-info btn-block" href="{{ path('projetGSB_visitor_directory_index')}}">Annuaire</a>
+    <div id="separation"></div>
+{% endblock %}

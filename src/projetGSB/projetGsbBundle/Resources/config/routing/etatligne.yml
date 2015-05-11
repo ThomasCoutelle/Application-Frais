@@ -1,0 +1,30 @@
+etatligne:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:index" }
+
+etatligne_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:show" }
+
+etatligne_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:new" }
+
+etatligne_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:create" }
+    requirements: { _method: post }
+
+etatligne_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:edit" }
+
+etatligne_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:update" }
+    requirements: { _method: post|put }
+
+etatligne_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatLigne:delete" }
+    requirements: { _method: post|delete }

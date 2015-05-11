@@ -1,0 +1,11 @@
+projetGSB_visitor_directory_index:
+    path:   /
+    defaults: {_controller: projetGSBprojetGsbBundle:InvoiceDirectory:index}
+    
+projetGSB_visitor_directory_consult:
+    path:   /consultation/{idFiche}
+    defaults: {_controller: projetGSBprojetGsbBundle:InvoiceDirectory:consult}
+    
+projetGSB_visitor_directory_invoiceResearch:
+    path:   /
+    defaults:   {_controller: projetGSBprojetGsbBundle:InvoiceDirectory:invoiceFilter}

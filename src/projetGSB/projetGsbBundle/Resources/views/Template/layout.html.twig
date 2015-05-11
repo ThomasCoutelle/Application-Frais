@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{% block langage %}Fr{% endblock %}">
+    <head>
+        <title>GSB - {% block pageTitle %}Page{% endblock %}</title>
+        <meta charset="utf-8" />
+        <link rel ="stylesheet" href ="{{ asset('bundles/projetgsbprojetgsb/css/bootstrap.min.css')}}"/>
+        <link rel ="stylesheet" href ="{{ asset('bundles/projetgsbprojetgsb/css/StyleMain.css')}}"/>
+        
+        {% block stylesheet %}
+        {% endblock %}
+    </head>
+
+    <body class="container-fluid">
+        <header class='row'>
+            {% block header %}
+                <div id='img_container' class='col-sm-4'>
+                    <img class="img-rounded" src="{{ asset('bundles/projetgsbprojetgsb/images/logo.jpg') }}" alt="logo GSB" title="Galaxy Swiss Bourdin" />
+                </div>
+                <div class='col-sm-4'>
+                    <h1>{% block title %}TITRE{% endblock %}</h1>
+                </div>
+                <div id="profil_container" class='col-sm-4'>
+                    <div id="profil" >
+                        <span id="bonjour">Bienvenue{% block nomUtilisateur %} <span id='nomUtilisateur'>{{ app.user.prenom }} {{ app.user.nom }}</span> {% endblock %}</span><br/>
+                        <a class="btn btn-primary" href="{{path('projetGSB_logout')}}" role="button"><span class="glyphicon glyphicon-off"> Déconnexion</span></a>
+                    </div>
+                </div>   
+            {% endblock %}
+        </header>
+
+        {% block principal %}
+            <div id="corps"  class='row'>
+                <aside id="menu" class='col-xs-4'>
+                    <nav>
+                        {% block nav %}
+                        {% endblock %}
+                    </nav>
+                    <div id="edit">
+                        {% block edit %}
+                        {% endblock %}
+                    </div>
+                </aside>
+                <section id="display" class='col-lg-8'>
+                    {% block display %}
+                    {% endblock %}
+                </section>
+            </div>
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+        <script src="{{ asset('bundles/projetgsbprojetgsb/js/jquery-1.11.1.min.js')}}"></script>
+        <script src="{{ asset('bundles/projetgsbprojetgsb/js/Main.js')}}"></script>
+    </body>
+</html>

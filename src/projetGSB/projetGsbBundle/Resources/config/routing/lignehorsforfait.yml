@@ -1,0 +1,30 @@
+lignehorsforfait:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:index" }
+
+lignehorsforfait_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:show" }
+
+lignehorsforfait_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:new" }
+
+lignehorsforfait_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:create" }
+    requirements: { _method: post }
+
+lignehorsforfait_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:edit" }
+
+lignehorsforfait_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:update" }
+    requirements: { _method: post|put }
+
+lignehorsforfait_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneHorsForfait:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,30 @@
+ligneforfait:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:index" }
+
+ligneforfait_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:show" }
+
+ligneforfait_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:new" }
+
+ligneforfait_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:create" }
+    requirements: { _method: post }
+
+ligneforfait_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:edit" }
+
+ligneforfait_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:update" }
+    requirements: { _method: post|put }
+
+ligneforfait_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:LigneForfait:delete" }
+    requirements: { _method: post|delete }

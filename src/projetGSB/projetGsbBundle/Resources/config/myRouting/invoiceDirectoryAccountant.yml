@@ -1,0 +1,3 @@
+projetGSB_accountant_directory_consult:
+    path:   /consultation/{idFiche}
+    defaults: {_controller: projetGSBprojetGsbBundle:InvoiceDirectory:consult}

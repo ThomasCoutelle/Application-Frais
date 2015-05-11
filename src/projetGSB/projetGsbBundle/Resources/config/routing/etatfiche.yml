@@ -1,0 +1,30 @@
+etatfiche:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:index" }
+
+etatfiche_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:show" }
+
+etatfiche_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:new" }
+
+etatfiche_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:create" }
+    requirements: { _method: post }
+
+etatfiche_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:edit" }
+
+etatfiche_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:update" }
+    requirements: { _method: post|put }
+
+etatfiche_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:EtatFiche:delete" }
+    requirements: { _method: post|delete }

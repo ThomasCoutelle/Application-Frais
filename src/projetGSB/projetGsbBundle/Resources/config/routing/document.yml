@@ -1,0 +1,30 @@
+document:
+    path:     /
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:index" }
+
+document_show:
+    path:     /{id}/show
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:show" }
+
+document_new:
+    path:     /new
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:new" }
+
+document_create:
+    path:     /create
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:create" }
+    requirements: { _method: post }
+
+document_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:edit" }
+
+document_update:
+    path:     /{id}/update
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:update" }
+    requirements: { _method: post|put }
+
+document_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "projetGSBprojetGsbBundle:Document:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>LigneForfait</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Repasmidi</th>
+                <td>{{ entity.repasMidi }}</td>
+            </tr>
+            <tr>
+                <th>Nuitees</th>
+                <td>{{ entity.nuitees }}</td>
+            </tr>
+            <tr>
+                <th>Etape</th>
+                <td>{{ entity.etape }}</td>
+            </tr>
+            <tr>
+                <th>Km</th>
+                <td>{{ entity.km }}</td>
+            </tr>
+            <tr>
+                <th>Datejourdebut</th>
+                <td>{{ entity.dateJourDebut }}</td>
+            </tr>
+            <tr>
+                <th>Datejourfin</th>
+                <td>{{ entity.dateJourFin }}</td>
+            </tr>
+            <tr>
+                <th>Motifrefus</th>
+                <td>{{ entity.motifRefus }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('ligneforfait') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('ligneforfait_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

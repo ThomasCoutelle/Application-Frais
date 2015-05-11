@@ -1,0 +1,42 @@
+projetGSB_accountant_index:
+    path:     /
+    defaults: { _controller: projetGSBprojetGsbBundle:InvoiceDirectory:index }
+
+projetGSB_accountant_validationDisplay:
+    path:    /validation/{idFiche}
+    defaults: { _controller: projetGSBprojetGsbBundle:Accountant:validationDisplay }
+    requirements: 
+        idFiche: \d+
+
+projetGSB_accountant_toggleLineState:
+    path:    /etat_ligne/{idLigne}/{type}
+    defaults: { _controller: projetGSBprojetGsbBundle:Accountant:toggleValidation }
+    requirements: 
+        idLigne: \d+
+        type: 'LF|LHF'
+
+projetGSB_accountant_historic:
+    path:    /historique
+    defaults: { _controller: projetGSBprojetGsbBundle:InvoiceDirectory:historic }
+
+projetGSB_accountant_fenceAllInvoice:
+    path:    /cloturer
+    defaults: { _controller: projetGSBprojetGsbBundle:Accountant:fenceAllInvoice }
+
+projetGSB_accountant_validateAllInvoice:
+    path:    /valider
+    defaults: { _controller: projetGSBprojetGsbBundle:Accountant:validateAllInvoice }
+
+projetGSB_accountant_validateOneInvoice:
+    path:    /valider_ligne/{idFiche}
+    defaults: { _controller: projetGSBprojetGsbBundle:Accountant:validateOneInvoice }
+    requirements: 
+        idLigne: \d+
+
+#    ===========================================================================
+#                                Annuaire
+#    ===========================================================================
+
+projetGSB_accountant_directory:
+    resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/invoiceDirectoryAccountant.yml"
+    prefix: /annuaire

@@ -1,0 +1,38 @@
+# you can read more about security in the related section of the documentation
+# http://symfony.com/doc/current/book/security.html
+security:
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+#        dev:
+#            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+
+        secured_area:
+            pattern: ^/
+            anonymous: ~
+            provider: main
+            form_login:
+                login_path: /
+                check_path: /login_check
+                always_use_default_target_path: true
+                default_target_path: /gestion_connexion
+            logout:
+                path: /logout
+                target: /
+
+    access_control:
+        - {path: ^/admin, roles: ROLE_ADMIN}
+        - {path: ^/comptable, roles: ROLE_COMPTABLE}
+        - {path: ^/visiteur, roles: ROLE_VISITEUR}
+        - {path: ^/gestion_connexion, roles: [ROLE_ADMIN, ROLE_COMPTABLE, ROLE_VISITEUR]}
+
+    providers:
+#        in_memory:
+#            users:
+#                admin: {password: adminpass, roles: 'ROLE_ADMIN'}
+        main:
+            entity: {class: projetGSB\projetGsbBundle\Entity\Utilisateur, property: login }
+
+    encoders:
+        projetGSB\projetGsbBundle\Entity\Utilisateur: 
+            algorithm: sha512
