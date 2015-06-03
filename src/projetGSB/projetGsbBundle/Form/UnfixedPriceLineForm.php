@@ -19,10 +19,7 @@ class UnfixedPriceLineForm extends AbstractType
             ->add('dateJour')
             ->add('montant')
             ->add('libelle')
-            ->add('justificatif', new UploadFileForm(),[
-                'required' => false,
-            ])
-        ;
+            ->add('justificatif', new UploadFileForm(),[ 'required' => false, ]);
     }
     
     /**

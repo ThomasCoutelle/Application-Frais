@@ -2,7 +2,9 @@
 
 namespace projetGSB\projetGsbBundle\Controller;
 
+use projetGSB\projetGsbBundle\Form\JsonForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use projetGSB\projetGsbBundle\Entity\FicheFrais;
 use projetGSB\projetGsbBundle\Entity\LigneForfait;
@@ -16,10 +18,11 @@ class VisitorController extends Controller
     {
         return $this->createIndexView();
     }
-    
+
     //Crée vue de l'index
     private function createIndexView()
     {
+        $syncForm = $this->newJson();
         $fiche = $this->loadCurrent();
         $createFixedPriceLineForm = $this->newFixedPriceLineAction();
         $createUnfixedPriceLineForm = $this->newUnfixedPriceLineAction();
@@ -29,8 +32,8 @@ class VisitorController extends Controller
             'FixedPriceLine' => $createFixedPriceLineForm[0],
             'createFixedPriceLineForm' => $createFixedPriceLineForm[1]->createView(),
             'UnfixedPriceLine' => $createUnfixedPriceLineForm[0],
-            'createUnfixedPriceLineForm' => $createUnfixedPriceLineForm[1]->createView()
-            
+            'createUnfixedPriceLineForm' => $createUnfixedPriceLineForm[1]->createView(),
+            'syncForm' => $syncForm->createView()
             ]);
     }
     
@@ -91,6 +94,7 @@ class VisitorController extends Controller
         return $fiche;
     }
 
+    //Supprime les fiches conservé plus de trois ans
     private function removeOldInvoice($visiteur){
         if ($visiteur){
             $listeFichesFrais = $visiteur->getListeFicheFrais();
@@ -258,6 +262,7 @@ class VisitorController extends Controller
 //    ==========================================================================
 //                            LIGNE HORS FORFAIT
 //    ==========================================================================
+
     //Créer vue formulaire ligne hors forfait
     public function newUnfixedPriceLineAction()
     {
@@ -340,7 +345,7 @@ class VisitorController extends Controller
         return $form;
     }
     
-    //Vérifie formualiare et persiste la modification de ligne forfait
+    //Vérifie formulaire et persiste la modification de ligne forfait
     public function updateUnfixedPriceLineAction(Request $request, $idLigne)
     {
         $db = $this->getDoctrine()->getManager();
@@ -392,5 +397,76 @@ class VisitorController extends Controller
         ])
             ->getForm()
         ;
+    }
+//    ==========================================================================
+//                            SYNCHRONISATION
+//    ==========================================================================
+
+    //Création et affiche du formulaire de synchronisation json
+    private function newJson()
+    {
+        $form = $this->createForm(new JsonForm());
+
+        $request = $this->get('request');
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $path_file = $form->get('json')->getData();
+            $json_source = file_get_contents($path_file);
+            $json_data = json_decode($json_source);
+
+            $db = $this->getDoctrine()->getManager();
+            $etatRefusee = $db->getRepository('projetGSBprojetGsbBundle:EtatLigne')->findOneByLibelle('Refusée');
+            $fiche = $this->loadLast($this->getUser());
+            $fiche->setDatedemodification(new \DateTime());
+
+            foreach($json_data->FicheFrais->LigneForfait as $fraisF) {
+                $ligneForfait = new LigneForfait();
+                $ligneForfait->setEtat($etatRefusee);
+                $ligneForfait->setFicheFrais($fiche);
+
+                $dateJourDebut = \DateTime::createFromFormat('d-m-Y', $fraisF->dateDebut)->format('d');
+                $dateJourFin = \DateTime::createFromFormat('d-m-Y', $fraisF->dateFin)->format('d');
+
+                $region = $db->getRepository('projetGSBprojetGsbBundle:Region')->findOneByLibelle($fraisF->region);
+                $query = $db->createQuery('
+                                        SELECT v
+                                        FROM projetGSBprojetGsbBundle:Vehicule v
+                                        WHERE v.puissance = :puissance AND v.type = :type
+                                        ')
+                                        ->setParameter('puissance', (int)substr($fraisF->vehicule,0,1))
+                                        ->setParameter('type', substr($fraisF->vehicule,4,strlen($fraisF->vehicule)-4));
+
+                $vehicule = $query->getResult();
+
+                $ligneForfait->setDateJourDebut($dateJourDebut);
+                $ligneForfait->setDateJourFin($dateJourFin);
+                $ligneForfait->setRepasMidi($fraisF->repasMidi);
+                $ligneForfait->setNuitees($fraisF->nuitee);
+                $ligneForfait->setEtape($fraisF->etape);
+                $ligneForfait->setKm($fraisF->kilometre);
+                $ligneForfait->setRegion($region);
+                $ligneForfait->setVehicule($vehicule[0]);
+
+                $db->persist($ligneForfait, $fiche);
+            }
+
+            foreach($json_data->FicheFrais->LigneHorsForfait as $fraisHF) {
+                $ligneHorsForfait = new LigneHorsForfait();
+                $ligneHorsForfait->setEtat($etatRefusee);
+                $ligneHorsForfait->setFicheFrais($fiche);
+
+                $dateJour = \DateTime::createFromFormat('m-d-Y', $fraisHF->date)->format('d');
+
+                $ligneHorsForfait->setDateJour($dateJour);
+                $ligneHorsForfait->setLibelle($fraisHF->libelle);
+                $ligneHorsForfait->setMontant($fraisHF->montant);
+
+                $db->persist($ligneHorsForfait, $fiche);
+            }
+
+            $db->flush();
+        }
+        return $form;
     }
 }

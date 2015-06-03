@@ -73,7 +73,7 @@ class FicheFraisRepository extends EntityRepository {
 
          if ($data['etat'] != '') {
             $qb->andWhere('f.etat = :etat')
-                ->setParameter('etat', $data['etat']);    
+                ->setParameter('etat', $data['etat']);
         }
 
         if ($data['nom'] != ''){

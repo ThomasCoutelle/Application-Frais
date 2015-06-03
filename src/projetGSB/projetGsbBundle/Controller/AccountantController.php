@@ -94,9 +94,8 @@ class AccountantController extends Controller
         $ficheFrais->setEtat($etatValide);
         $db->flush();
 
-        $info = $this->info($ficheFrais);
-
-        return $this->redirect($this->generateUrl('projetGSB_accountant_index', ['info' => $info]));
+        //$info = $this->info($ficheFrais);
+        //return $this->redirect($this->generateUrl('projetGSB_accountant_index', ['info' => $info]));
     }
 
    /* private function info($ficheFrais)

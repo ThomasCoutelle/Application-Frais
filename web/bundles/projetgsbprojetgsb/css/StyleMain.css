@@ -94,7 +94,7 @@ header #nomUtilisateur {
     background-color: #5280bc;
     width: 85%;
     height: 1px;
-    margin: 10px auto;
+    margin: 8px auto;
 }
 
 #menu {
@@ -118,6 +118,15 @@ nav .btn-block {
 nav .btn-inline{
     margin: 7px auto;
     width: 40%;
+}
+
+nav .syncForm{
+    display: inline-block;
+    margin-top: 7px;
+}
+
+nav h3{
+    margin-top: 8px;
 }
 
 /*

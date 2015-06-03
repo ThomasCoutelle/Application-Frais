@@ -51,3 +51,11 @@ projetGSB_visitor_deleteUnfixed:
 projetGSB_visitor_directory:
     resource: "@projetGSBprojetGsbBundle/Resources/config/myRouting/invoiceDirectoryVisitor.yml"
     prefix: /annuaire
+
+#    ===========================================================================
+#                                Synchronisation mobile JSON
+#    ===========================================================================
+projetGSB_visitor_sync:
+    path: /synchronisation
+    defaults: {_controller: projetGSBprojetGsbBundle:Visitor:syncJson}
+    methods: POST

@@ -10,7 +10,7 @@ class FixedPriceLineValidationForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('motifRefus', 'textarea');
+        $builder->add('motifRefus', 'textarea', [ 'required' => false, ]);
         $builder->add('etat');
     }
 
